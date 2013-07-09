@@ -1,0 +1,1 @@
+permalink: http://www.reddit.com/r/dailyprogrammer/comments/1heozl/070113_challenge_131_easy_who_tests_the_tests/cay84px
