@@ -1,0 +1,1 @@
+This solution was developed with LINQPad.
