@@ -1,0 +1,1 @@
+permalink: http://www.reddit.com/r/dailyprogrammer/comments/1iambu/071513_challenge_133_easy_foottraffic_analysis/cb3qzem
