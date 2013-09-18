@@ -1,0 +1,1 @@
+permalink: http://www.reddit.com/r/dailyprogrammer/comments/1kphtf/081313_challenge_136_easy_student_management/ccas98t
