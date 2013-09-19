@@ -1,0 +1,1 @@
+permalink: http://www.reddit.com/r/dailyprogrammer/comments/1ml669/091713_challenge_138_easy_repulsionforce/ccbcmka
