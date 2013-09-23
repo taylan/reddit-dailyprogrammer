@@ -1,13 +1,30 @@
 import re
+import sys
+
 
 class Assembler(object):
     instructions = {
-        'and': {'[a] [a]': '0x00', '[a] a': '0x01'}
+        'and': {'[a] [a]': '0x00', '[a] a': '0x01'},
+        'or': {'[a] [a]': '0x02', '[a] a': '0x03'},
+        'xor': {'[a] [a]': '0x04', '[a] a': '0x05'},
+        'not': {'[a]': '0x06'},
+        'mov': {'[a] [a]': '0x07', '[a] a': '0x08'},
+        'random': {'[a]': '0x09'},
+        'add': {'[a] [a]': '0x0a', '[a] a': '0x0b'},
+        'sub': {'[a] [a]': '0x0c', '[a] a': '0x0d'},
+        'jmp': {'[a]': '0x0e', 'a': '0x0f'},
+        'jz': {'[a] [a]': '0x10', '[a] a': '0x11', 'a [a]': '0x12', 'a a': '0x13'},
+        'jeq': {'[a] [a] [a]': '0x14', 'a [a] [a]': '0x15', '[a] [a] a': '0x16', 'a [a] a': '0x17'},
+        'jls': {'[a] [a] [a]': '0x18', 'a [a] [a]': '0x19', '[a] [a] a': '0x1a', 'a [a] a': '0x1b'},
+        'jgt': {'[a] [a] [a]': '0x1c', 'a [a] [a]': '0x1d', '[a] [a] a': '0x1e', 'a [a] a': '0x1f'},
+        'halt': {'': '0xff'},
+        'aprint': {'[a]': '0x20', 'a': '0x21'},
+        'dprint': {'[a]': '0x22', 'a': '0x23'}
     }
 
     output = []
 
-    def parse_instruction_params(self, line_num, instruction, arguments):
+    def parse_instruction(self, line_num, instruction, arguments):
         args = re.sub('\d+', 'a', arguments)
         args = re.sub('\s{2,}', ' ', args)
         try:
@@ -16,8 +33,6 @@ class Assembler(object):
             raise Exception("Invalid arguments for instruction on line {0}.".format(line_num))
 
         return "{0} {1}".format(variant, ' '.join(['{0:#04x}'.format(int(x)) for x in re.findall('\d+', arguments)]))
-
-        pass
 
     def compile_line(self, line_num, line):
         line = line.strip()
@@ -30,11 +45,7 @@ class Assembler(object):
         except KeyError:
             raise Exception("Unrecognized instruction '{0}' on line {1}.".format(tokens[0], line_num))
 
-        compiled_line = self.parse_instruction_params(line_num, instruction, ' '.join(tokens[1:]))
-        print(compiled_line)
-        #print(instruction)
-
-        pass
+        self.output.append(self.parse_instruction(line_num, instruction, ' '.join(tokens[1:])))
 
     def compile(self, lines):
         try:
@@ -46,11 +57,13 @@ class Assembler(object):
         return self.output
 
 
-def main():
-    inp = open("test.asm").read().splitlines()
+def main(argv):
+    print(argv)
     a = Assembler()
-    a.compile(inp)
+    compiled = a.compile(open("test.asm").read().splitlines())
+
+
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
