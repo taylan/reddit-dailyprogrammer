@@ -58,11 +58,8 @@ class Assembler(object):
 
 
 def main(argv):
-    print(argv)
-    a = Assembler()
-    compiled = a.compile(open("test.asm").read().splitlines())
-
-
+    with open(argv[0]) as ass_file:
+        [print(line) for line in (Assembler()).compile(ass_file.read().splitlines())]
 
 
 if __name__ == "__main__":
