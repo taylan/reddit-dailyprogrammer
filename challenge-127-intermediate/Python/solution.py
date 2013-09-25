@@ -1,15 +1,20 @@
-def initialize(forward_definitions):
+def initialize(entries, day):
     forwards = dict()
 
-    for definition in forward_definitions:
-        params = definition.split(' ')
-        forward = forwards.get(params[0], [])
+    for entry in entries:
+        frm, to = entry.split(' ')[:2]
+        start, length = list(map(int, entry.split(' ')[2:]))
+        # filter forwards which do not occur on the target day
+        if not start <= day <= start + length:
+            continue
+
+        forward = forwards.get(frm, [])
         forward.append({
-            'dest': params[1],
-            'ts': int(params[2]),
-            'te': int(params[2]) + int(params[3])
+            'dest': to,
+            'ts': start,
+            'te': start + length
         })
-        forwards[params[0]] = forward
+        forwards[frm] = forward
 
     return forwards
 
@@ -23,7 +28,7 @@ def get_max_forward_chain_count(redirects, visited, source, day):
 
     visited.add(source)
 
-    forwards = [f for f in redirects[source] if f['ts'] <= day <= f['te']]
+    forwards = [f for f in redirects[source]]
     if len(forwards) == 0:
         return 0
 
@@ -46,9 +51,9 @@ def main():
     with open('input.txt') as input_file:
         num_forw, *forwards, day = input_file.read().splitlines()
 
-    forwards = initialize(forwards)
+    forwards = initialize(forwards, int(day))
 
-    print("{0} call forwardings set up on day 2".format(len([x for f in forwards.values() for x in f if x['ts'] <= int(day) <= x['te']]), day))
+    print("{0} call forwardings set up on day 2".format(len([x for f in forwards.values() for x in f]), day))
     print("{0} call forwardings are the longest chain on day {1}".format(max(list(calculate_forward_chain_lengths(forwards, int(day)).values())), day))
 
 
