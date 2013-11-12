@@ -1,10 +1,6 @@
 from string import capwords
 
 
-# 0 > lower
-# 1 > capwords
-# 2 >
-
 def main():
     ops = [lambda x: capwords(x), lambda x: x.lower(), lambda x: x.upper()]
     for p in [l.split(' ') for l in open('input.txt').read().splitlines()]:
