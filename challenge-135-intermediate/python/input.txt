@@ -1,0 +1,6 @@
+a
+NOT a
+a AND b
+NOT a AND b
+NOT (a AND b)
+NOT (a OR b AND C) OR NOT(a AND NOT b)
