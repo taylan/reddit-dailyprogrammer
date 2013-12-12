@@ -1,6 +1,8 @@
-2DNail 3
-4DNail 5
-8DNail 10
-8DNail 11
-4DNail 5
-2DNail 2
+CarriageBolt 45
+Eyebolt 50
+Washer 120
+Rivet 10
+CarriageBolt 45
+Eyebolt 45
+Washer 140
+Rivet 10
